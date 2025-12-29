@@ -6,3 +6,5 @@ the starting point of this repo is based on the book, but new mods will be added
 Chapter 4 (p. 75): spinlock
 
 Chapter 5 (p. 85): one-shot-channel
+
+Chapter 6 (p. 105): Arc

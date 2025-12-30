@@ -26,6 +26,15 @@ impl<T> Channel<T> {
     }
 }
 
+impl<T> Default for Channel<T> {
+    fn default() -> Self {
+        Self {
+            message: UnsafeCell::new(MaybeUninit::uninit()),
+            ready: AtomicBool::new(false),
+        }
+    }
+}
+
 unsafe impl<T> Sync for Channel<T> where T: Send {}
 
 impl<T> Drop for Channel<T> {

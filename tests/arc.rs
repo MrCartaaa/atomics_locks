@@ -156,4 +156,14 @@ fn arc_spinlock() {
     assert!(carter.lock().children.len() == 5);
 
     drop(cloned);
+
+    let carter_weak = Arc::downgrade(&carter);
+    let madison_weak = Arc::downgrade(&madison);
+
+    drop(carter);
+
+    drop(madison);
+
+    assert!(carter_weak.upgrade().is_none());
+    assert!(madison_weak.upgrade().is_none());
 }

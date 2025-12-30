@@ -11,6 +11,7 @@ struct ArcData<T> {
     data: UnsafeCell<ManuallyDrop<T>>,
 }
 
+#[derive(Debug)]
 pub struct Arc<T> {
     ptr: NonNull<ArcData<T>>,
 }

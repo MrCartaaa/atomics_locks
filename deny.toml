@@ -1,15 +1,19 @@
 # deny.toml: Workspace-wide dependency policy enforcement
+#  To add license exceptions, create a file cwd/deny.exceptions.toml and add them there.
 
 [licenses]
+unused-allowed-license= "allow"
 allow = [
     "MIT",
     "Apache-2.0",
     "BSD-3-Clause",
+    "Unicode-3.0",
 ]
 
 [advisories]
 # deny-warnings = true is default behavior now
 
 [sources]
+unused-allowed-source = "allow"
 allow-registry = ["https://github.com/rust-lang/crates.io-index"]
-allow-git = ["https://github.com/MrCartaaa/*"]
+private = ["https://github.com/MrCartaaa"]

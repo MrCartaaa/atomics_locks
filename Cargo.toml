@@ -2,6 +2,7 @@
 name = "atomics_locks"
 version = "0.1.0"
 edition = "2024"
+license = "MIT"
 description = "Based on the book \"Rust Atomics and locks\" by Mara Bos (978-1-098-11944-7)"
 
 [dependencies]

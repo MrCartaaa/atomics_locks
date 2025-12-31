@@ -6,11 +6,6 @@ allow = [
     "Apache-2.0",
     "BSD-3-Clause",
 ]
-deny = [
-    "GPL-2.0",
-    "GPL-3.0",
-    "AGPL-3.0",
-]
 
 [advisories]
 # deny-warnings = true is default behavior now

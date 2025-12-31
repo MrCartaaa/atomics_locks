@@ -1,10 +1,10 @@
-pub mod common;
+pub mod unwrap;
 use atomics_locks::arc::{Arc, Weak};
 use atomics_locks::spinlock::SpinLock;
-use common::UnwrapOrPanic;
 use std::sync::atomic::AtomicUsize;
 use std::sync::atomic::Ordering::Relaxed;
 use std::thread;
+use unwrap::Must;
 
 #[test]
 fn arc() {
@@ -26,13 +26,13 @@ fn arc() {
 
     let t = std::thread::spawn(move || {
         // Weak pointer should be upgradeable
-        let y = weak1.upgrade().unwrap_or_panic();
+        let y = weak1.upgrade().must();
         assert_eq!(y.0, "hello world");
     },);
 
     assert_eq!(x.0, "hello world");
 
-    t.join().unwrap_or_panic();
+    t.join().must();
 
     // the data shouldn't be dropped yet
     assert_eq!(NUM_DROPS.load(Relaxed), 0);
@@ -101,8 +101,8 @@ fn arc_spinlock() {
         }
     }
 
-    let madison = Person::is_born(None, None, "madison", Sex::Female,).unwrap_or_panic();
-    let mut carter = Person::is_born(None, None, "carter", Sex::Male,).unwrap_or_panic();
+    let madison = Person::is_born(None, None, "madison", Sex::Female,).must();
+    let mut carter = Person::is_born(None, None, "carter", Sex::Male,).must();
 
     let babies = vec![
         ("ayla", Sex::Female,),
@@ -119,17 +119,11 @@ fn arc_spinlock() {
                 match baby_result {
                     Ok(baby,) => {
                         assert!(
-                            Weak::upgrade(baby.lock().father.as_ref().unwrap_or_panic())
-                                .unwrap_or_panic()
-                                .lock()
-                                .name
+                            Weak::upgrade(baby.lock().father.as_ref().must()).must().lock().name
                                 == "carter"
                         );
                         assert_eq!(
-                            Weak::upgrade(baby.lock().mother.as_ref().unwrap_or_panic())
-                                .unwrap_or_panic()
-                                .lock()
-                                .name,
+                            Weak::upgrade(baby.lock().mother.as_ref().must()).must().lock().name,
                             "madison"
                         );
                         println!("{} was born!", baby.lock().name);

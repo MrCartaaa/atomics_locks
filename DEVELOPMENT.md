@@ -68,7 +68,7 @@ cargo +nightly miri test --all-targets --all-features
 - Documentation & usage: https://github.com/rust-lang/miri/blob/master/README.md
 - Undefined Behavior in Rust: https://doc.rust-lang.org/reference/behavior-considered-undefined.html
 
-### Test Utilities (`tests/unwrap.rs`)
+### Test Utilities (`tests/must.rs`)
 
 Safe, Clippy-compliant unwrap helpers **exclusively for tests**.
 
@@ -87,7 +87,8 @@ The `sync-rust-template` script copies `tests/common.rs` from the template → `
 - Overwrites with `--force`
 
 ```bash
-sync-rust-template --force   # creates / overwrites tests/unwrap.rs
+sync-rust-template --force   # creates / overwrites tests/must.rs
+```
 
 ### cargo-deny (`deny.toml`)
 

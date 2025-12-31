@@ -9,14 +9,14 @@ fn unsafe_channel() {
 
     thread::scope(|s| {
         s.spawn(|| {
-            channel.send("hello world");
+            channel.send("hello world",);
             t.unpark();
-        });
+        },);
         while !channel.is_ready() {
             thread::park()
         }
         assert_eq!(channel.receive(), "hello world");
-    })
+    },)
 }
 
 #[test]
@@ -27,15 +27,15 @@ fn unsafe_channel_multiple_sends_panics() {
 
     thread::scope(|s| {
         s.spawn(|| {
-            channel.send("hello world");
-            channel.send("hello world");
+            channel.send("hello world",);
+            channel.send("hello world",);
             t.unpark();
-        });
+        },);
         while !channel.is_ready() {
             thread::park()
         }
         assert_eq!(channel.receive(), "hello world");
-    })
+    },)
 }
 
 #[test]
@@ -46,25 +46,25 @@ fn unsafe_channel_multiple_receives_panics() {
 
     thread::scope(|s| {
         s.spawn(|| {
-            channel.send("hello world");
+            channel.send("hello world",);
             t.unpark();
-        });
+        },);
         while !channel.is_ready() {
             thread::park()
         }
         assert_eq!(channel.receive(), "hello world");
         channel.receive();
-    })
+    },)
 }
 
 #[test]
 fn typed_channel() {
     let mut channel = typed_channel::Channel::new();
     thread::scope(|s| {
-        let (sender, receiver) = channel.split();
+        let (sender, receiver,) = channel.split();
         s.spawn(move || {
-            sender.send("hello world");
-        });
+            sender.send("hello world",);
+        },);
         assert_eq!(receiver.receive(), "hello world");
-    })
+    },)
 }

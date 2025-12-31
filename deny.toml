@@ -1,0 +1,22 @@
+# deny.toml: Workspace-wide dependency policy enforcement
+
+[licenses]
+# Allow these licenses
+allow = ["MIT", "Apache-2.0", "BSD-3-Clause"]
+# Forbid these licenses
+forbid = ["GPL-2.0", "GPL-3.0", "AGPL-3.0"]
+
+[vulnerabilities]
+# Fail if any dependency is known to be vulnerable
+deny-warnings = true
+
+[yanked]
+# Fail if any dependency is yanked
+deny = true
+
+[sources]
+# Only allow crates.io and your GitHub account repositories
+allow = [
+    "registry+https://github.com/rust-lang/crates.io-index",
+    "git+https://github.com/MrCartaaa/*"
+]

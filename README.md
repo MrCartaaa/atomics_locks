@@ -1,3 +1,5 @@
+For development rules, see [DEVELOPMENT.md](DEVELOPMENT.md)
+
 
 ### Based on the book "Rust Atomics and locks" by Mara Bos (978-1-098-11944-7)
 the starting point of this repo is based on the book, but new mods will be added to test usecases required for [Mae](https://github.com/MrCartaaa/mae)

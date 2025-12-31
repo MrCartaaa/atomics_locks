@@ -1,10 +1,10 @@
-pub mod unwrap;
+pub mod must;
 use atomics_locks::arc::{Arc, Weak};
 use atomics_locks::spinlock::SpinLock;
+use must::Must;
 use std::sync::atomic::AtomicUsize;
 use std::sync::atomic::Ordering::Relaxed;
 use std::thread;
-use unwrap::Must;
 
 #[test]
 fn arc() {

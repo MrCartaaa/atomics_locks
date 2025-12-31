@@ -5,6 +5,5 @@
 #![deny(unsafe_op_in_unsafe_fn)]
 
 pub mod arc;
-pub mod mutex;
 pub mod one_shot_channel;
 pub mod spinlock;

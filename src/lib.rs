@@ -7,3 +7,4 @@
 pub mod arc;
 pub mod one_shot_channel;
 pub mod spinlock;
+pub mod mutex;

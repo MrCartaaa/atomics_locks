@@ -1,3 +1,4 @@
 exceptions = [
+{crate = "atomic-wait", allow = ["BSD-2-Clause"]},
 {crate = "unicode-ident", allow = ["MIT", "Apache-2.0", "Unicode-3.0"]}
 ]

@@ -13,6 +13,8 @@ This project enforces Rust best practices using nightly tooling, aggressive lint
 - **Opinionated rustfmt** configuration for consistent code style
 - **Optimized GitHub Actions CI** that runs checks only on changed `.rs` files
 - **Compile-time denials** for common anti-patterns (configured in `lib.rs`)
+- **Git pre-push hook** that automatically runs formatting, tests, Miri, Clippy, audit, and deny checks before pushing commits
+- **Comprehensive .gitignore** to exclude build artifacts, temporary files, environment files, Docker outputs, and IDE/editor settings
 
 ## Tooling Details
 
@@ -112,6 +114,107 @@ Triggers on push/PR to `main` or `master`. Includes:
 - `cargo deny check`
 
 Optimizes performance by detecting changed `.rs` files and skipping checks when no Rust code is modified.
+
+## Pre-Push Hook
+
+### Git Pre-Push Hook (`.git/hooks/pre-push`)
+
+This project includes a pre-push hook to enforce Rust quality checks **before any `git push`**. It runs automatically when you push commits and ensures your code passes formatting, linting, testing, Miri, and dependency checks.
+
+* **Automatic execution**: `.git/hooks/pre-push`
+* **Bypass options**:
+
+  * `SKIP_RUST_GATE=1` — skips all Rust checks globally
+  * `FAST_PUSH=1` — skips Miri tests but still runs other checks
+* **Requirements**: Only runs if all of these files exist in your Rust project:
+
+  * `clippy.toml`
+  * `deny.toml`
+  * `rustfmt.toml`
+  * `rust-toolchain.toml`
+
+### Behavior
+
+1. Checks formatting:
+
+```bash
+cargo fmt -- --check
+```
+
+2. Runs all tests:
+
+```bash
+cargo test
+```
+
+3. Runs Miri unless `FAST_PUSH` is set:
+
+```bash
+cargo miri test
+```
+
+4. Enforces strict linting:
+
+```bash
+cargo clippy -- -D warnings
+```
+
+5. Audits dependencies:
+
+```bash
+cargo audit
+```
+
+6. Verifies workspace policies:
+
+```bash
+cargo deny check
+```
+
+If any check fails, the push is aborted.
+
+---
+
+## Git Ignore (`.gitignore`)
+
+This project uses a comprehensive `.gitignore` to prevent committing unnecessary or sensitive files:
+
+```gitignore
+# Rust / Cargo
+/target/
+**/*.rs.bk
+**/*.rs.orig
+**/*.rs.tmp
+**/debug/
+**/release/
+*.rs.meta
+rust-project.json
+
+# Environment files
+.env
+.env.*
+.env.local
+.env.production
+.env.development
+
+# Docker
+docker-compose.override.yml
+Dockerfile.*
+.dockerignore
+*.dockerfile
+*.log
+*.pid
+docker-volume-*
+docker-container-*
+
+# IDEs / Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*.bak
+*.tmp
+```
 
 ## Getting Started
 

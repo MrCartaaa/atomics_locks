@@ -14,6 +14,7 @@ This project enforces Rust best practices using nightly tooling, aggressive lint
 - **Optimized GitHub Actions CI** that runs checks only on changed `.rs` files
 - **Compile-time denials** for common anti-patterns (configured in `lib.rs`)
 - **Git pre-push hook** that automatically runs formatting, tests, Miri, Clippy, audit, and deny checks before pushing commits
+- **Git pre-commit hook** that checks for latest rust_template changes
 - **Comprehensive .gitignore** to exclude build artifacts, temporary files, environment files, Docker outputs, and IDE/editor settings
 
 ## Tooling Details

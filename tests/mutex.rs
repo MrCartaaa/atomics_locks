@@ -4,7 +4,7 @@ use atomics_locks::mutex::Mutex;
 
 #[test]
 fn mutex_attack() {
-    const ATTACK: u32 = 50000;
+    const ATTACK: u32 = 5_000_000;
     let m = Mutex::new(0,);
     std::hint::black_box(&m,);
     let start = Instant::now();

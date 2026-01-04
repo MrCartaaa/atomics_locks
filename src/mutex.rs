@@ -47,7 +47,7 @@ fn lock_contended(state: &AtomicU32,) {
 }
 
 pub struct MutexGuard<'a, T,> {
-    mutex: &'a Mutex<T,>,
+    pub mutex: &'a Mutex<T,>,
 }
 
 impl<T,> Deref for MutexGuard<'_, T,> {

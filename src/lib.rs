@@ -8,3 +8,5 @@ pub mod arc;
 pub mod mutex;
 pub mod one_shot_channel;
 pub mod spinlock;
+pub mod condvar;
+pub mod rwlock;
